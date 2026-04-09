@@ -445,7 +445,9 @@
   document.getElementById('gh-pull-btn').onclick = ghPull;
 
   document.getElementById('save-data-btn').onclick = () => {
-    const blob = new Blob([notesToText(notes)], { type:'text/plain' });
+    const blob = new Blob([JSON.stringify(notes, null, 2)], {
+  type: 'application/json'
+});
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
     a.download = 'notes-backup.notes'; a.click(); URL.revokeObjectURL(a.href);
     isDirty = false; loadedFrom = loadedFrom||'notes-backup.notes'; updateStatus();
